@@ -15,7 +15,11 @@
   - Tempo máximo de execução
 
 
-  Execução: ./{arquivo_binario} {tempo_maximo_execucao} 
+  Execução: ./{arquivo_binario} {tempo_maximo_execucao}  < {entrada}
+  Entrada:
+  - Primeira linha: capacidade do bin
+  - Segunda linha: número de itens
+  - N-próximas linhas: volume dos itens
 */ 
 
 
