@@ -1,6 +1,5 @@
 # Caminho base do CPLEX
-CPLEX_DIR = /opt/ibm/ILOG/CPLEX_Studio_Community2212
-
+CPLEX_DIR = /home/rafael/cplex/
 # Includes
 INCLUDES = \
   -I$(CPLEX_DIR)/cplex/include \

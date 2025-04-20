@@ -1,3 +1,8 @@
+/*
+– Dado um grafo G Æ (V,E), determinar a clique máxima de G, ou seja, omaior
+subgrafo completo em G.
+*/
+
 #include <ilcplex/ilocplex.h>
 #include <vector>
 
@@ -28,10 +33,13 @@ int main() {
     for(int v=0; v<n; ++v)
         somatorioObj += x[v];
 
+    // Função Objetivo: Maximiza o subconjunto de vértices em que todos estão conectados
     IloObjective obj = IloMaximize(env, somatorioObj);
     
     model.add(obj);
 
+
+    //Restrições
     for(int v = 0; v < n; ++v) {
         for(int u = v+1; u < n; ++u) {
             bool adjacente = false;

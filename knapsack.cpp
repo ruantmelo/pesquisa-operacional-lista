@@ -1,3 +1,11 @@
+/*
+– Dado um conjunto de n itens e um inteiro W que representa a capacidade da 
+mochila.
+– Cada item i possui um valor vi e um peso wi. 
+– Determinar o subconjuntos de itens que maximizam o somatório dos valores 
+respeitando a capacidade de peso da mochila.
+*/
+
 #include <ilcplex/ilocplex.h>
 #include <vector>
 
@@ -19,10 +27,12 @@ int main() {
     for(int i=0; i<n; ++i)
         somatorioObj += v[i]*x[i];
 
+    // Função Objetivo: Maximiza o somatório dos valores
     IloObjective obj = IloMaximize(env, somatorioObj);
 
     model.add(obj);
 
+    // Restrições
     IloExpr somatorioRes(env);
     for(int i=0; i<n; ++i)
         somatorioRes += w[i]*x[i];

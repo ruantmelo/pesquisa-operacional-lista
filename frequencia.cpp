@@ -1,3 +1,10 @@
+/*
+– Quando o raio de duas antenas se interceptam, haverá interferência caso as
+antenas utilizem a mesma frequência
+– Estabelecer frequências para as antenas de modo que não haja interferências
+e que o número de frequências utilizadas seja minimizado.
+*/
+
 #include <ilcplex/ilocplex.h>
 #include <vector>
 
@@ -7,7 +14,7 @@ int main() {
     IloEnv env;
     IloModel model(env);
 
-    int n = 5; 
+    int n = 9; 
 
     std::vector<std::vector<int>> g(n);
 
@@ -20,26 +27,30 @@ int main() {
     g[0].push_back(3);
     g[3].push_back(0);
 
-    g[0].push_back(4);
-    g[4].push_back(0);
-
-    g[1].push_back(2);
-    g[2].push_back(1);
+    g[0].push_back(7);
+    g[7].push_back(0);
 
     g[1].push_back(3);
     g[3].push_back(1);
 
-    g[1].push_back(4);
-    g[4].push_back(1);
-
     g[2].push_back(3);
     g[3].push_back(2);
 
-    g[2].push_back(4);
-    g[4].push_back(2);
-
     g[3].push_back(4);
     g[4].push_back(3);
+
+    g[3].push_back(5);
+    g[5].push_back(3);
+
+    g[3].push_back(6);
+    g[6].push_back(3);
+
+    g[5].push_back(8);
+    g[8].push_back(5);
+
+    g[6].push_back(7);
+    g[7].push_back(6);
+
 
 
     IloArray<IloIntVarArray> x(env, n);
@@ -53,9 +64,12 @@ int main() {
     for(int k=0; k<n; ++k)
         somatorioObj += z[k];
 
+    // Função Objetivo: Minimiza o número de frequências utilizadas
     IloObjective obj = IloMinimize(env, somatorioObj);
+    
     model.add(obj);
 
+    // Restrições
     for(int i = 0; i < n; ++i) {
         IloExpr somatorioAtribuiFreq(env);
         for(int k = 0; k < n; ++k)

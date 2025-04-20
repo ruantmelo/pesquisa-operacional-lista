@@ -1,3 +1,11 @@
+/*
+– Dado um conjunto de N centros que podem ser construídos depósitos ou não, 
+e um conjunto de M cliente que precisam suprir suas demandas. 
+– Minimizar o custo de instalação de depósitos e o custo de atendimento, onde:
+– fi é o custo de instalação do depósito i
+– cij é o custo de atendimento entre o depósito i e o cliente j.
+*/
+
 #include <ilcplex/ilocplex.h>
 #include <vector>
 
@@ -33,10 +41,12 @@ int main() {
         for(int j=0; j<m; ++j)
             somatorioAtendimento += c[i][j] * x[i][j];
 
+    // Função Objetivo: Minimiza o custo de instalação mais o de atendimento
     IloObjective obj = IloMinimize(env, somatorioInstalacao + somatorioAtendimento);
+    
     model.add(obj);
 
-
+    // Restrições
     for (int j = 0; j < m; ++j){
         IloExpr somatorioRes(env);
         for (int i = 0; i < n; ++i){
